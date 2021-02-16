@@ -1,3 +1,3 @@
-FROM php:7.4-fpm
+FROM scratch
 
 COPY . /app
