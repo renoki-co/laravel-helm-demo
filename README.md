@@ -2,7 +2,7 @@
 
 A slight demo on how to run Laravel on Kubernetes using Helm.
 
-# Building Image
+## Building Image
 
 Make sure you build an image with your vendor/tag:
 
@@ -12,10 +12,10 @@ $ docker build . -t myapp/laravel
 
 This will later be used in the Kubernetes chart: [renoki-co/laravel-helm-chart](https://github.com/renoki-co/laravel-helm-chart).
 
-# Change deployment steps
+## Change deployment steps
 
 When deploying, `deploy.sh` will be ran. Check it for deployment steps and you can change them accordingly.
 
-# Change PHP-FPM version
+## Change PHP-FPM version
 
 To change the PHP-FPM version, simply start from another PHP-FPM image version in `Dockerfile`.
