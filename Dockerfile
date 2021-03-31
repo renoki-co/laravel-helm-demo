@@ -4,6 +4,9 @@ RUN apk --update add \
   wget \
   curl \
   build-base \
+  composer \
+  nodejs=14.16.0-r0 \
+  npm=14.16.0-r0 \
   libmcrypt-dev \
   libxml2-dev \
   pcre-dev \
