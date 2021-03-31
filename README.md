@@ -1,6 +1,6 @@
 # Laravel Helm Demo
 
-A slight demo on how to run Laravel on Kubernetes using Helm.
+A slight demo on how to run Laravel on Kubernetes using Helm, horizontally-scaled, using NGINX Ingress Controller and PHP-FPM.
 
 ## Building Image
 
