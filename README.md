@@ -10,7 +10,7 @@ Make sure you build an image with your vendor/tag:
 $ docker build . -t myapp/laravel
 ```
 
-This will later be used in the Kubernetes chart: [renoki-co/laravel-helm-chart](https://github.com/renoki-co/laravel-helm-chart).
+This will later be used in the Kubernetes chart: [renoki-co/charts/laravel](https://github.com/renoki-co/charts/tree/master/charts/laravel).
 
 ## Change deployment steps
 
