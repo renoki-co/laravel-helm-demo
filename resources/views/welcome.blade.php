@@ -125,9 +125,9 @@
                     <div class="ml-4 text-center text-sm text-gray-500 sm:text-right sm:ml-0">
                         Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
 
-                        @if ($_ENV['POD_NAME'] ?? false)
+                        @if ($podName)
                             <br>
-                            Pod name: {{ $_ENV['POD_NAME'] }}
+                            Pod name: {{ $podName }}
                         @endif
                     </div>
                 </div>
