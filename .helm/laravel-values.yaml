@@ -114,6 +114,20 @@ app:
         targetMemoryUtilizationPercentage: 80
         # targetCPUUtilizationPercentage: 80
 
+        behavior: {}
+        # Set the behavior for the autoscaler.
+        # https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-configurable-scaling-behavior
+
+        # Custom Metrics will be appended to the default CPU/Memory resources (if they're enabled).
+        customMetrics: []
+        # - type: Pods
+        #   pods:
+        #     metric:
+        #       name: phpfpm_process_utilization
+        #     target:
+        #       type: AverageValue
+        #       averageValue: "50"
+
       pdb:
         enabled: true
         minAvailable: 1
@@ -307,6 +321,20 @@ autoscaling:
   maxReplicas: 10
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
+
+  behavior: {}
+  # Set the behavior for the autoscaler.
+  # https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-configurable-scaling-behavior
+
+  # Custom Metrics will be appended to the default CPU/Memory resources (if they're enabled).
+  customMetrics: []
+  # - type: Pods
+  #   pods:
+  #     metric:
+  #       name: phpfpm_process_utilization
+  #     target:
+  #       type: AverageValue
+  #       averageValue: "50"
 
 pdb:
   enabled: true
