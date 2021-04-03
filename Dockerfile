@@ -54,4 +54,4 @@ RUN docker-php-ext-configure gd --with-freetype=/usr/lib/ --with-jpeg=/usr/lib/ 
 
 RUN docker-php-ext-enable redis
 
-COPY . /app
+COPY . /var/www/html
