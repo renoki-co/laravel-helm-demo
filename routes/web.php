@@ -18,3 +18,5 @@ Route::get('/', function () {
         'podName' => $_ENV['POD_NAME'] ?? ($_SERVER['POD_NAME'] ?? null),
     ]);
 });
+
+Route::get('/health', [\App\Http\Controllers\HealthController::class, 'handle']);
