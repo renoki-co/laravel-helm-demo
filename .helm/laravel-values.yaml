@@ -13,7 +13,6 @@ app:
   image:
     repository: renokico/laravel-helm-demo
     pullPolicy: IfNotPresent
-    # Overrides the image tag whose default is the chart appVersion.
     tag: "0.1.6"
 
   # Specify the Secret name to pull the .env file from.
@@ -47,12 +46,35 @@ app:
   #  - name: some-folder
   #    mountPath: /some/path
 
+  # For PHP-FPM, php-fpm_exporter is used. Enabling it will
+  # attach automatically the container and will expose metrics on localhost:9253/metrics
+  # for Prometheus to scrape.
+  # Read more: https://github.com/hipages/php-fpm_exporter
+  exporter:
+    enabled: true
+
+    image:
+      repository: hipages/php-fpm_exporter
+      pullPolicy: IfNotPresent
+      tag: "2.0.1"
+
+    resources: {}
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 40m
+    #   memory: 32Mi
+    # requests:
+    #   cpu: 40m
+    #   memory: 32Mi
+
 # Values for NGINX reverse proxy
 nginx:
   image:
     repository: nginx
     pullPolicy: IfNotPresent
-    # Overrides the image tag whose default is the chart appVersion.
     tag: "1.19"
 
   resources: {}
@@ -84,6 +106,17 @@ nginx:
     }
 
     http {
+      server {
+        listen 8080 default_server;
+        listen [::]:8080 default_server;
+
+        server_name stub_status;
+
+        location = /stub_status {
+          stub_status;
+        }
+      }
+
       server {
         listen 80 default_server;
         listen [::]:80 default_server;
@@ -120,6 +153,30 @@ nginx:
         }
       }
     }
+
+  # For NGINX, nginx-prometheus-exporter is used. Enabling it will
+  # attach automatically the container and will expose metrics on localhost:9113/metrics
+  # for Prometheus to scrape.
+  # Read more: https://github.com/nginxinc/nginx-prometheus-exporter
+  exporter:
+    enabled: true
+
+    image:
+      repository: nginx/nginx-prometheus-exporter
+      pullPolicy: IfNotPresent
+      tag: "0.9.0"
+
+    resources: {}
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 40m
+    #   memory: 32Mi
+    # requests:
+    #   cpu: 40m
+    #   memory: 32Mi
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -169,6 +226,11 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
+pdb:
+  enabled: true
+  minAvailable: 1
+  # maxUnavailable: 25%
+
 nodeSelector: {}
 
 tolerations: []
@@ -179,6 +241,12 @@ affinity: {}
 extraVolumes: []
 #  - name: some-folder
 #    emptyDir: {}
+
+# Extra containers to run in the deployment.
+extraContainers: []
+
+# Extra init containers to run in the deployment.
+extraInitContainers: []
 
 phpFpmConf:
   # Specify the Config name to pull the laravel.conf configuration from.

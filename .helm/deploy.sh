@@ -15,7 +15,7 @@ helm upgrade nginx \
     ingress-nginx/ingress-nginx
 
 helm upgrade laravel \
-    --version=0.1.3 \
+    --version=0.2.0 \
     -f laravel-values.yaml \
     --install \
     renoki-co/laravel
