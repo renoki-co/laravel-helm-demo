@@ -13,7 +13,7 @@ app:
   image:
     repository: renokico/laravel-helm-demo
     pullPolicy: IfNotPresent
-    tag: "0.2.0"
+    tag: "0.3.0"
 
   # Specify the Secret name to pull the .env file from.
   # If not specified, it defaults to "{release name}-env". It should
@@ -45,6 +45,13 @@ app:
   extraVolumeMounts: []
   #  - name: some-folder
   #    mountPath: /some/path
+
+  # Configure the TCP healthcheck for the PHP-FPM process.
+  # If enabled, Kubernetes will periodically check the PHP-FPM
+  # process to be alive and to serve FCGI requests.
+  healthcheck:
+    enabled: true
+    period: 5
 
   # Run separate deployments (workers) that will long-live processes
   # other than the PHP-FPM. Can be used for example to run queues or Laravel Horizon.
@@ -159,6 +166,15 @@ nginx:
   extraVolumeMounts: []
   #  - name: some-folder
   #    mountPath: /some/path
+
+  # Configure the HTTP healthcheck for the Laravel app.
+  # If enabled, ensure the given path in the Laravel app
+  # returns a 200 OK when accessed. Implementing a healthcheck
+  # controller like https://github.com/renoki-co/laravel-healthchecks is desirable.
+  healthcheck:
+    enabled: true
+    period: 5
+    path: /health
 
   # Specify the Config name to pull the nginx configuration from.
   # If not specified, it defaults to "{release name}-nginx-config".
