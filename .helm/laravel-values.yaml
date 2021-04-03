@@ -13,7 +13,7 @@ app:
   image:
     repository: renokico/laravel-helm-demo
     pullPolicy: IfNotPresent
-    tag: "0.1.6"
+    tag: "0.2.0"
 
   # Specify the Secret name to pull the .env file from.
   # If not specified, it defaults to "{release name}-env". It should
@@ -45,6 +45,72 @@ app:
   extraVolumeMounts: []
   #  - name: some-folder
   #    mountPath: /some/path
+
+  # Run separate deployments (workers) that will long-live processes
+  # other than the PHP-FPM. Can be used for example to run queues or Laravel Horizon.
+  # Each worker will create a new deployment.
+  workers:
+    - name: queue
+
+      # The command to run the process.
+      command: php artisan queue:work --memory=64
+
+      resources: {}
+      # We usually recommend not to specify default resources and to leave this as a conscious
+      # choice for the user. This also increases chances charts run on environments with little
+      # resources, such as Minikube. If you do want to specify resources, uncomment the following
+      # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+      # limits:
+      #   cpu: 100m
+      #   memory: 128Mi
+      # requests:
+      #   cpu: 100m
+      #   memory: 128Mi
+
+      # Extra environment variables for the app container.
+      extraEnv: []
+
+      # Extra volumes to mount on the container.
+      extraVolumeMounts: []
+
+      # Extra containers to run in the worker deployment.
+      extraContainers: []
+
+      # Extra init containers to run in the worker deployment.
+      extraInitContainers: []
+
+      nodeSelector: {}
+
+      tolerations: []
+
+      affinity: {}
+
+      podAnnotations: {}
+
+      podSecurityContext: {}
+        # fsGroup: 2000
+
+      securityContext: {}
+        # capabilities:
+        #   drop:
+        #   - ALL
+        # readOnlyRootFilesystem: true
+        # runAsNonRoot: true
+        # runAsUser: 1000
+
+      replicaCount: 1
+
+      autoscaling:
+        enabled: true
+        minReplicas: 1
+        maxReplicas: 10
+        targetMemoryUtilizationPercentage: 80
+        # targetCPUUtilizationPercentage: 80
+
+      pdb:
+        enabled: true
+        minAvailable: 1
+        # maxUnavailable: 25%
 
   # For PHP-FPM, php-fpm_exporter is used. Enabling it will
   # attach automatically the container and will expose metrics on localhost:9253/metrics
@@ -220,7 +286,7 @@ ingress:
   #      - chart-example.local
 
 autoscaling:
-  enabled: false
+  enabled: true
   minReplicas: 1
   maxReplicas: 10
   targetCPUUtilizationPercentage: 80
@@ -279,7 +345,7 @@ phpFpmConf:
     ;             pm.process_idle_timeout   - The number of seconds after which
     ;                                         an idle process will be killed.
     ; Note: This value is mandatory.
-    pm = dynamic
+    pm = static
 
     ; The number of child processes to be created when pm is set to 'static' and the
     ; maximum number of child processes when pm is set to 'dynamic' or 'ondemand'.
@@ -290,22 +356,22 @@ phpFpmConf:
     ; forget to tweak pm.* to fit your needs.
     ; Note: Used when pm is set to 'static', 'dynamic' or 'ondemand'
     ; Note: This value is mandatory.
-    pm.max_children = 5
+    ;pm.max_children = 5
 
     ; The number of child processes created on startup.
     ; Note: Used only when pm is set to 'dynamic'
     ; Default Value: (min_spare_servers + max_spare_servers) / 2
-    pm.start_servers = 2
+    ;pm.start_servers = 2
 
     ; The desired minimum number of idle server processes.
     ; Note: Used only when pm is set to 'dynamic'
     ; Note: Mandatory when pm is set to 'dynamic'
-    pm.min_spare_servers = 1
+    ;pm.min_spare_servers = 1
 
     ; The desired maximum number of idle server processes.
     ; Note: Used only when pm is set to 'dynamic'
     ; Note: Mandatory when pm is set to 'dynamic'
-    pm.max_spare_servers = 3
+    ;pm.max_spare_servers = 3
 
     ; The number of seconds after which an idle process will be killed.
     ; Note: Used only when pm is set to 'ondemand'
