@@ -5,6 +5,7 @@
     - [Change PHP-FPM version](#change-php-fpm-version)
   - [Deploying](#deploying)
     - [Helm v3](#helm-v3)
+    - [Autoscaling](#autoscaling)
 
 # Laravel Helm Demo
 
@@ -46,3 +47,26 @@ $ cd .helm && sh deploy.sh
 ```
 
 The example also comes with NGINX Ingress Controller and is going to be deployed to the cluster.
+
+### Autoscaling
+
+For better understading of autoscaling, Prometheus and Prometheus Adapter may be used to scrap the PHP-FPM Process Manager's active children and scale pods up or down based on the number.
+
+There is an article that explains the way this works: [Scaling PHP FPM based on utilization demand on Kubernetes](https://blog.wyrihaximus.net/2021/01/scaling-php-fpm-based-on-utilization-demand-on-kubernetes/).
+
+The only setting you should be aware of is that there are two containers in the Laravel pod that expose metrics. To allow Prometheus to scrape them both, don't use the port annotation on the pod and add the following source label in the Prometheus job ([original gist](https://gist.github.com/bakins/5bf7d4e719f36c1c555d81134d8887eb)):
+
+```yaml
+jobs:
+  - job_name: 'kubernetes-pods'
+    ...
+
+    relabel_configs:
+      ...
+
+      - source_labels: [__meta_kubernetes_pod_container_port_name]
+        action: keep
+        regex: (.+)-metrics
+
+      ...
+```
