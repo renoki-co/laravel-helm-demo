@@ -51,7 +51,7 @@ RUN apk --update add \
     rm -rf /tmp/pear && \
     rm /var/cache/apk/*
 
-COPY . /var/www
+COPY . /var/www/html
 
 ENTRYPOINT ["php", "-d", "variables_order=EGPCS", "artisan", "octane:start", "--server=swoole", "--host=0.0.0.0", "--port=80"]
 

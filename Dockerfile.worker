@@ -50,6 +50,6 @@ RUN apk --update add \
     rm -rf /tmp/pear && \
     rm /var/cache/apk/*
 
-COPY . /var/www
+COPY . /var/www/html
 
 ENTRYPOINT ["php", "-v"]
