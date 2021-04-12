@@ -52,4 +52,6 @@ RUN apk --update add \
 
 COPY . /var/www/html
 
+WORKDIR /var/www/html
+
 ENTRYPOINT ["php", "-v"]

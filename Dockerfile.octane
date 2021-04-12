@@ -53,6 +53,8 @@ RUN apk --update add \
 
 COPY . /var/www/html
 
+WORKDIR /var/www/html
+
 ENTRYPOINT ["php", "-d", "variables_order=EGPCS", "artisan", "octane:start", "--server=swoole", "--host=0.0.0.0", "--port=80"]
 
 EXPOSE 80

@@ -51,3 +51,5 @@ RUN apk --update add \
     rm /var/cache/apk/*
 
 COPY . /var/www/html
+
+WORKDIR /var/www/html
