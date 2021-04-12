@@ -50,8 +50,6 @@ RUN apk --update add \
     rm -rf /tmp/pear && \
     rm /var/cache/apk/*
 
-USER www-data:www-data
-
 COPY . /var/www/html
 
 WORKDIR /var/www/html
