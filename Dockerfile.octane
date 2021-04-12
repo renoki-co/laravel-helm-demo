@@ -1,6 +1,8 @@
 # https://hub.docker.com/r/phpswoole/swoole
 FROM phpswoole/swoole:4.6-php8.0-alpine
 
+COPY . /var/www/html
+
 RUN apk --update add \
         wget \
         curl \
@@ -49,9 +51,9 @@ RUN apk --update add \
     docker-php-ext-install gd && \
     docker-php-ext-enable redis && \
     rm -rf /tmp/pear && \
-    rm /var/cache/apk/*
-
-COPY . /var/www/html
+    rm /var/cache/apk/* && \
+    mkdir -p storage/logs/ && \
+    chown -R www-data:www-data /var/www/html
 
 WORKDIR /var/www/html
 
