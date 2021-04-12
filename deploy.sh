@@ -16,3 +16,5 @@ php artisan view:cache
 # There is no need to set permissions here because the Helm chart
 # fixes this using a "podStart" lifecycle command.
 # chmod -R 777 storage/ bootstrap/cache/
+# mkdir -p storage/logs/
+# chown -R www-data:www-data /var/www/html

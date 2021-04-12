@@ -1,6 +1,8 @@
 # https://hub.docker.com/r/phpswoole/swoole
 FROM phpswoole/swoole:4.6-php8.0-alpine
 
+USER www-data:www-data
+
 RUN apk --update add \
         wget \
         curl \

@@ -1,5 +1,7 @@
 FROM php:8.0-fpm-alpine
 
+USER www-data:www-data
+
 RUN apk --update add \
         wget \
         curl \
