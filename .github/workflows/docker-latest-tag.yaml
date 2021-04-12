@@ -16,14 +16,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Docker meta
-        id: docker_meta
-        uses: crazy-max/ghaction-docker-meta@v2.3.0
-        with:
-          images: renokico/laravel-helm-demo
-          tags: |
-            type=semver,pattern=latest
-
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
 
@@ -42,6 +34,6 @@ jobs:
         with:
           push: true
           context: .
-          tags: ${{ steps.docker_meta.outputs.tags }}
+          tags: renokico/laravel-helm-demo:latest
           labels: ${{ steps.docker_meta.outputs.labels }}
           file: Dockerfile.fpm

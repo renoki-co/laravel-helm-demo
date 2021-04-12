@@ -36,5 +36,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
+          context: .
           tags: renokico/laravel-helm-demo:${{ github.sha }}
           file: Dockerfile.fpm
