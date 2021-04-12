@@ -1,9 +1,5 @@
 FROM php:8.0-cli-alpine
 
-WORKDIR /var/www/html
-
-COPY . /var/www/html
-
 RUN apk --update add \
         wget \
         curl \
@@ -55,5 +51,12 @@ RUN apk --update add \
     rm /var/cache/apk/* && \
     mkdir -p storage/logs/ && \
     chown -R www-data:www-data /var/www/html
+
+COPY . /var/www/html
+
+RUN mkdir -p /var/www/html/storage/logs/ && \
+    chown -R www-data:www-data /var/www/html
+
+WORKDIR /var/www/html
 
 ENTRYPOINT ["php", "-v"]
