@@ -33,7 +33,7 @@ When deploying, `deploy.sh` from the root folder will be ran. Check it for deplo
 
 ### Change PHP-FPM version
 
-To change the PHP-FPM version, simply start from another PHP-FPM image version in `Dockerfile`. Basically,
+To change the PHP-FPM version, simply start from another PHP-FPM image version in `Dockerfile.fpm`. Basically,
 the final image will contain the project with dependencies installed, as long as the entire PHP-FPM process.
 
 ## Deploying

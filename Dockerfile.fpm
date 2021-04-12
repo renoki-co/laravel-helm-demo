@@ -49,6 +49,6 @@ RUN apk --update add \
     docker-php-ext-enable redis && \
     rm -rf /tmp/pear && \
     rm /var/cache/apk/* && \
-    apk del .build-deps && \
+    apk del .build-deps
 
 COPY . /var/www/html

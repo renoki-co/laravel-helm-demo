@@ -37,3 +37,4 @@ jobs:
         with:
           push: true
           tags: renokico/laravel-helm-demo:${{ github.sha }}
+          file: Dockerfile.fpm
