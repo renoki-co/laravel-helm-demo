@@ -215,6 +215,6 @@ return [
     |
     */
 
-    'state_file' => storage_path('octane-server-state.json'),
+    'state_file' => storage_path('logs/octane-server-state.json'),
 
 ];
