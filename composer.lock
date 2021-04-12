@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "243e3eb1c8f769faf89c2bf94a1d05e5",
+    "content-hash": "aa953da448855c66abcfbbafcefc333c",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1225,16 +1225,16 @@
         },
         {
             "name": "laravel/octane",
-            "version": "v0.1.1",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/octane.git",
-                "reference": "f28fc04971e7cc3fa2b6d6f87181a71cf9a8b632"
+                "reference": "952285978669bde1383886fe439b5c93dba8ff38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/octane/zipball/f28fc04971e7cc3fa2b6d6f87181a71cf9a8b632",
-                "reference": "f28fc04971e7cc3fa2b6d6f87181a71cf9a8b632",
+                "url": "https://api.github.com/repos/laravel/octane/zipball/952285978669bde1383886fe439b5c93dba8ff38",
+                "reference": "952285978669bde1383886fe439b5c93dba8ff38",
                 "shasum": ""
             },
             "require": {
@@ -1250,8 +1250,10 @@
                 "orchestra/testbench": "^6.16",
                 "phpunit/phpunit": "^9.3",
                 "spatie/laravel-ray": "^1.14",
-                "spiral/roadrunner": "^2.0"
+                "spiral/roadrunner": "^2.0",
+                "swoole/ide-helper": "^4.6"
             },
+            "default-branch": true,
             "bin": [
                 "bin/roadrunner-worker",
                 "bin/swoole-server"
@@ -1293,7 +1295,7 @@
                 "issues": "https://github.com/laravel/octane/issues",
                 "source": "https://github.com/laravel/octane"
             },
-            "time": "2021-04-07T14:14:11+00:00"
+            "time": "2021-04-12T14:01:02+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -7816,7 +7818,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "laravel/octane": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
