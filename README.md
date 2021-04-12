@@ -4,6 +4,7 @@
     - [Change deployment steps](#change-deployment-steps)
     - [Change PHP-FPM version](#change-php-fpm-version)
     - [Change Octane version](#change-octane-version)
+    - [Workers](#workers)
   - [Deploying](#deploying)
     - [Helm v3](#helm-v3)
     - [Autoscaling](#autoscaling)
@@ -40,6 +41,10 @@ the final image will contain the project with dependencies installed, as long as
 ### Change Octane version
 
 The project contains an Octane-based image. Same as with the PHP-FPM version, you can change the Octane-based image by editing `Dockerfile.octane`.
+
+### Workers
+
+The project contains an PHP CLI-based image that you can use to run your Laravel workers, such as queues or schedulers. To change the image, edit `Dockerfile.worker`.
 
 ## Deploying
 
