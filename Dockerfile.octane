@@ -1,4 +1,5 @@
-FROM php:8.0-alpine
+# https://hub.docker.com/r/phpswoole/swoole
+FROM phpswoole/swoole:4.6-php8.0-alpine
 
 RUN apk --update add \
         wget \
@@ -27,7 +28,7 @@ RUN apk --update add \
         libxslt-dev \
         libgcrypt-dev && \
     pecl channel-update pecl.php.net && \
-    pecl install mcrypt redis-5.3.4 swoole && \
+    pecl install mcrypt redis-5.3.4 && \
     docker-php-ext-install \
         mysqli \
         mbstring \
@@ -46,11 +47,11 @@ RUN apk --update add \
         xsl && \
     docker-php-ext-configure gd --with-freetype=/usr/lib/ --with-jpeg=/usr/lib/ && \
     docker-php-ext-install gd && \
-    docker-php-ext-enable redis swoole && \
+    docker-php-ext-enable redis && \
     rm -rf /tmp/pear && \
     rm /var/cache/apk/*
 
-COPY . /var/www/html
+COPY . /var/www
 
 ENTRYPOINT ["php", "-d", "variables_order=EGPCS", "artisan", "octane:start", "--server=swoole", "--host=0.0.0.0", "--port=80"]
 
