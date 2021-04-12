@@ -1,7 +1,5 @@
 FROM php:8.0-cli-alpine
 
-USER www-data:www-data
-
 RUN apk --update add \
         wget \
         curl \
@@ -51,6 +49,8 @@ RUN apk --update add \
     docker-php-ext-enable redis && \
     rm -rf /tmp/pear && \
     rm /var/cache/apk/*
+
+USER www-data:www-data
 
 COPY . /var/www/html
 
