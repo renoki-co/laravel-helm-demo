@@ -42,9 +42,13 @@ the final image will contain the project with dependencies installed, as long as
 
 The project contains an Octane-based image. Same as with the PHP-FPM version, you can change the Octane-based image by editing `Dockerfile.octane`.
 
+To deploy Octane workloads in Kubernetes, check the [dedicated Helm chart](https://github.com/renoki-co/charts/tree/master/charts/laravel-octane) for Octane.
+
 ### Workers
 
 The project contains an PHP CLI-based image that you can use to run your Laravel workers, such as queues or schedulers. To change the image, edit `Dockerfile.worker`.
+
+To deploy wokers in Kubernetes, check the [dedicated Helm chart](https://github.com/renoki-co/charts/tree/master/charts/laravel-worker) for such workloads.
 
 ## Deploying
 
