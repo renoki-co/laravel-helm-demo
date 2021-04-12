@@ -1,6 +1,8 @@
 # https://hub.docker.com/r/phpswoole/swoole
 FROM phpswoole/swoole:4.6-php8.0-alpine
 
+WORKDIR /var/www/html
+
 COPY . /var/www/html
 
 RUN apk --update add \
@@ -54,8 +56,6 @@ RUN apk --update add \
     rm /var/cache/apk/* && \
     mkdir -p storage/logs/ && \
     chown -R www-data:www-data /var/www/html
-
-WORKDIR /var/www/html
 
 ENTRYPOINT ["php", "-d", "variables_order=EGPCS", "artisan", "octane:start", "--server=swoole", "--host=0.0.0.0", "--port=80"]
 
