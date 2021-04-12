@@ -13,4 +13,4 @@ php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 
-chmod -R 777 storage/ storage/logs/ bootstrap/cache/
+chmod -R 777 storage/ bootstrap/cache/
