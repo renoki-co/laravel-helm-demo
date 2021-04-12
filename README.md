@@ -3,6 +3,7 @@
     - [Dependencies](#dependencies)
     - [Change deployment steps](#change-deployment-steps)
     - [Change PHP-FPM version](#change-php-fpm-version)
+    - [Change Octane version](#change-octane-version)
   - [Deploying](#deploying)
     - [Helm v3](#helm-v3)
     - [Autoscaling](#autoscaling)
@@ -35,6 +36,10 @@ When deploying, `deploy.sh` from the root folder will be ran. Check it for deplo
 
 To change the PHP-FPM version, simply start from another PHP-FPM image version in `Dockerfile.fpm`. Basically,
 the final image will contain the project with dependencies installed, as long as the entire PHP-FPM process.
+
+### Change Octane version
+
+The project contains an Octane-based image. Same as with the PHP-FPM version, you can change the Octane-based image by editing `Dockerfile.octane`.
 
 ## Deploying
 
