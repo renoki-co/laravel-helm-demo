@@ -5,8 +5,8 @@ RUN apk --update add \
         curl \
         build-base \
         composer \
-        nodejs=14.16.0-r2 \
-        npm=14.16.0-r2 \
+        nodejs-current \
+        nodejs-current-npm \
         libmcrypt-dev \
         libxml2-dev \
         pcre-dev \
