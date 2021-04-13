@@ -9,7 +9,7 @@
 
 # helm upgrade nginx \
 #     --version=3.26.0 \
-#     -f nginx-values.yaml \
+#     -f extra/nginx-values.yaml \
 #     --install \
 #     ingress-nginx/ingress-nginx
 
@@ -24,13 +24,13 @@
 
 # helm upgrade prometheus \
 #     --version=13.6.0 \
-#     -f prometheus-values.yaml \
+#     -f extra/prometheus-values.yaml \
 #     --install \
 #     prometheus-community/prometheus
 
 # helm upgrade prometheus-adapter \
 #     --version=2.12.1 \
-#     -f prometheus-adapter-values.yaml \
+#     -f extra/prometheus-adapter-values.yaml \
 #     --install \
 #     prometheus-community/prometheus-adapter
 
