@@ -25,6 +25,8 @@ This will later be used in the Kubernetes chart: [renoki-co/charts/laravel](http
 
 An example image build workflow can be found in [.github/workflows/docker-release-tag.yaml](.github/workflows/docker-release-tag.yaml).
 
+All images work on [base images](https://github.com/renoki-co/laravel-docker-base) that already have extensions enabled to speed up the project copy into the container thus leading to faster deployments.
+
 ### Dependencies
 
 It's recommended that the dependencies will be installed alongside with the container to ensure your pods will not take additional time each time they start.
