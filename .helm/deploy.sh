@@ -54,3 +54,10 @@ helm upgrade laravel-octane \
     -f laravel-octane-values.yaml \
     --install \
     renoki-co/laravel-octane
+
+# Deploy (an example) worker for Laravel Queues.
+helm upgrade laravel-worker \
+    --version=0.1.0 \
+    -f laravel-worker-values.yaml \
+    --install \
+    renoki-co/laravel-worker
