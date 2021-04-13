@@ -1,5 +1,5 @@
-# https://github.com/renoki-co/laravel-docker-base/actions
-FROM renokico/laravel-base:octane-1.0.0-php8.0-alpine
+# https://github.com/renoki-co/laravel-docker-base
+FROM renokico/laravel-base:octane-1.0.0-4.6-php8.0-alpine
 
 COPY . /var/www/html
 

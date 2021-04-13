@@ -15,7 +15,7 @@ Run Laravel on Kubernetes using Helm. This project is horizontal scale-ready, an
 
 ## Building Image
 
-This projects offers three alternative to build an image:
+This project offers three alternative to build an image:
 
 - for PHP-FPM + NGINX projects (using `Dockerfile.fpm`)
 - for Octane (using `Dockerfile.octane`)
