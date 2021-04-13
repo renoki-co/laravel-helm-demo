@@ -33,8 +33,15 @@ helm upgrade prometheus-adapter \
     prometheus-community/prometheus-adapter
 
 # Deploy the Laravel app.
-helm upgrade laravel \
-    --version=0.6.0 \
-    -f laravel-values.yaml \
+# helm upgrade laravel \
+#     --version=0.7.2 \
+#     -f laravel-values.yaml \
+#     --install \
+#     renoki-co/laravel
+
+# Deploy the Laravel app with Octane.
+helm upgrade laravel-octane \
+    --version=0.1.2 \
+    -f laravel-octane-values.yaml \
     --install \
-    renoki-co/laravel
+    renoki-co/laravel-octane

@@ -522,7 +522,7 @@ controller:
       # nodePort: ""
 
     serviceMonitor:
-      enabled: true
+      enabled: false
       additionalLabels: {}
       namespace: ""
       namespaceSelector: {}

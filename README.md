@@ -56,7 +56,11 @@ To deploy wokers in Kubernetes, check the [dedicated Helm chart](https://github.
 
 ### Helm v3
 
-You will need Helm v3+ to deploy the chart. You need to run the `.helm/deploy.sh` file:
+You will need Helm v3+ to deploy the chart.
+
+Inside `.helm/deploy.sh` you will find commented the versions of Laravel you may deploy using Helm charts. Uncomment the one that's favorable for you (vanilla or Octane-based).
+
+Then you need to run the `.helm/deploy.sh` file:
 
 ```bash
 $ cd .helm && sh deploy.sh
