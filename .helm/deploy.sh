@@ -50,14 +50,14 @@ helm repo update
 
 # Alternative: Deploy the Laravel app with Octane.
 helm upgrade laravel-octane \
-    --version=0.1.2 \
+    --version=0.1.3 \
     -f laravel-octane-values.yaml \
     --install \
     renoki-co/laravel-octane
 
 # Deploy (an example) worker for Laravel Queues.
 helm upgrade laravel-worker \
-    --version=0.1.0 \
+    --version=0.1.1 \
     -f laravel-worker-values.yaml \
     --install \
     renoki-co/laravel-worker
