@@ -1,72 +1,53 @@
 - [Laravel Helm Demo](#laravel-helm-demo)
   - [Building Image](#building-image)
-    - [Dependencies](#dependencies)
-    - [Change deployment steps](#change-deployment-steps)
-    - [Change PHP-FPM version](#change-php-fpm-version)
-    - [Change Octane version](#change-octane-version)
+    - [NGINX + PHP-FPM](#nginx--php-fpm)
+    - [Octane](#octane)
     - [Workers](#workers)
-  - [Deploying](#deploying)
-    - [Helm v3](#helm-v3)
+    - [Installing Dependencies](#installing-dependencies)
+    - [Deploy Script](#deploy-script)
+  - [Deploying on Kubernetes](#deploying-on-kubernetes)
+    - [Deploying Chart](#deploying-chart)
     - [Autoscaling](#autoscaling)
 
 # Laravel Helm Demo
 
-A slight demo on how to run Laravel on Kubernetes using Helm, horizontally-scaled, using NGINX Ingress Controller and PHP-FPM.
+Run Laravel on Kubernetes using Helm. This project is horizontal scale-ready, and it can either be used with NGINX + PHP-FPM or Octane.
 
 ## Building Image
 
-Make sure you build an image with your vendor/tag:
+This projects offers three alternative to build an image:
 
-```bash
-$ docker build . -t myapp/laravel
-```
+- for PHP-FPM + NGINX projects (using `Dockerfile.fpm`)
+- for Octane (using `Dockerfile.octane`)
+- for Workers (like CLI commands, using `Dockerfile.worker`)
 
-This will later be used in the Kubernetes chart: [renoki-co/charts/laravel](https://github.com/renoki-co/charts/tree/master/charts/laravel).
+All images are based on [Laravel Docker Base images](https://github.com/renoki-co/laravel-docker-base), a small repository that contains Dockerfiles that already compile the extensions and enable them, to speed up the project deployment, since the same extensions are always installed during the normal project CI/CD pipeline.
 
-An example image build workflow can be found in [.github/workflows/docker-release-tag.yaml](.github/workflows/docker-release-tag.yaml).
+### NGINX + PHP-FPM
 
-All images work on [base images](https://github.com/renoki-co/laravel-docker-base) that already have extensions enabled to speed up the project copy into the container thus leading to faster deployments.
+The images generated with NGINX + PHP-FPM are using [renoki-co/laravel chart](https://github.com/renoki-co/charts/tree/master/charts/laravel) and you may find there the documentation on how to deploy the chart.
 
-### Dependencies
+### Octane
 
-It's recommended that the dependencies will be installed alongside with the container to ensure your pods will not take additional time each time they start.
-
-### Change deployment steps
-
-When deploying, `deploy.sh` from the root folder will be ran. Check it for deployment steps and you can change them accordingly.
-
-### Change PHP-FPM version
-
-To change the PHP-FPM version, simply start from another PHP-FPM image version in `Dockerfile.fpm`. Basically,
-the final image will contain the project with dependencies installed, as long as the entire PHP-FPM process.
-
-### Change Octane version
-
-The project contains an Octane-based image. Same as with the PHP-FPM version, you can change the Octane-based image by editing `Dockerfile.octane`.
-
-To deploy Octane workloads in Kubernetes, check the [dedicated Helm chart](https://github.com/renoki-co/charts/tree/master/charts/laravel-octane) for Octane.
+The images generated with Octane are using [renoki-co/laravel-octane chart](https://github.com/renoki-co/charts/tree/master/charts/laravel-octane) and you may find there the documentation on how to deploy the chart.
 
 ### Workers
 
-The project contains an PHP CLI-based image that you can use to run your Laravel workers, such as queues or schedulers. To change the image, edit `Dockerfile.worker`.
+The images generated for Workers are using [renoki-co/laravel-worker chart](https://github.com/renoki-co/charts/tree/master/charts/laravel-worker) and you may find there the documentation on how to deploy the chart.
 
-To deploy wokers in Kubernetes, check the [dedicated Helm chart](https://github.com/renoki-co/charts/tree/master/charts/laravel-worker) for such workloads.
+### Installing Dependencies
 
-## Deploying
+It's recommended that the dependencies and other static data to be installed alongside with the container in CI/CD pipeline. This way, your pods will not take additional time each time they start to complete additional long steps like installing the dependencies or compiling the frontend assets.
 
-### Helm v3
+### Deploy Script
 
-You will need Helm v3+ to deploy the chart.
+In the project root, you will find a `deploy.sh` file that will contain additional steps to run on each Pod startup. You might change it according to your needs, but keep in mind that it shouldn't take too much. The more it takes, the slower your autoscaling will be.
 
-Inside `.helm/deploy.sh` you will find commented the versions of Laravel you may deploy using Helm charts. Uncomment the one that's favorable for you (vanilla or Octane-based).
+## Deploying on Kubernetes
 
-Then you need to run the `.helm/deploy.sh` file:
+### Deploying Chart
 
-```bash
-$ cd .helm && sh deploy.sh
-```
-
-The example also comes with NGINX Ingress Controller and is going to be deployed to the cluster.
+A brief example can be found in `.helm/deploy.sh` on how to deploy a Laravel Octane application. You will also find optional Helm releases that might help you deploying the application, such as Prometheus for PHP-FPM + NGINX scaling or NGINX Ingress Controller to port NGINX to the app service.
 
 ### Autoscaling
 
