@@ -4,7 +4,9 @@ FROM renokico/laravel-base:octane-1.0.0-4.6-php8.0-alpine
 COPY . /var/www/html
 
 RUN mkdir -p /var/www/html/storage/logs/ && \
-    chown -R www-data:www-data /var/www/html
+    chown -R www-data:www-data /var/www/html && \
+    rm -rf tests/ .git/ .github/ *.md && \
+    rm -rf vendor/*/test/ vendor/*/tests/*
 
 WORKDIR /var/www/html
 
