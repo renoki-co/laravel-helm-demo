@@ -43,14 +43,14 @@ helm repo update
 
 # Deploy the Laravel app.
 # helm upgrade laravel \
-#     --version=0.7.2 \
+#     --version=0.7.3 \
 #     -f laravel-values.yaml \
 #     --install \
 #     renoki-co/laravel
 
 # Alternative: Deploy the Laravel app with Octane.
 helm upgrade laravel-octane \
-    --version=0.1.3 \
+    --version=0.1.4 \
     -f laravel-octane-values.yaml \
     --install \
     renoki-co/laravel-octane
