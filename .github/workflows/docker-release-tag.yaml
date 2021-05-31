@@ -31,7 +31,7 @@ jobs:
 
       - name: Docker meta
         id: docker_meta
-        uses: docker/metadata-action@v3.2.0
+        uses: docker/metadata-action@v3.3.0
         with:
           images: renokico/laravel-helm-demo
           tags: |
@@ -89,7 +89,7 @@ jobs:
 
       - name: Docker meta
         id: docker_meta
-        uses: docker/metadata-action@v3.2.0
+        uses: docker/metadata-action@v3.3.0
         with:
           images: renokico/laravel-helm-demo
           tags: |
@@ -147,7 +147,7 @@ jobs:
 
       - name: Docker meta
         id: docker_meta
-        uses: docker/metadata-action@v3.2.0
+        uses: docker/metadata-action@v3.3.0
         with:
           images: renokico/laravel-helm-demo
           tags: |
