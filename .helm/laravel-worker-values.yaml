@@ -13,7 +13,7 @@ app:
   image:
     repository: renokico/laravel-helm-demo
     pullPolicy: IfNotPresent
-    tag: "worker-0.5.0"
+    tag: "worker-0.5.1"
 
   # The command to run and keep alive on the worker.
   command: php artisan queue:work
@@ -75,6 +75,9 @@ service:
   enabled: false
   type: ClusterIP
   port: 80
+
+  annotations: {}
+  # Set annotations for the service.
 
 ingress:
   enabled: false
