@@ -23,7 +23,7 @@ jobs:
           extensions: dom, curl, intl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
           coverage: pcov
 
-      - uses: actions/cache@v2.1.4
+      - uses: actions/cache@v2.1.6
         name: Cache Composer dependencies
         with:
           path: ~/.composer/cache/files
@@ -31,7 +31,7 @@ jobs:
 
       - name: Docker meta
         id: docker_meta
-        uses: crazy-max/ghaction-docker-meta@v2.3.0
+        uses: docker/metadata-action@v3.4.1
         with:
           images: quay.io/renokico/laravel-helm-demo
           tags: |
@@ -82,7 +82,7 @@ jobs:
           extensions: dom, curl, intl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
           coverage: pcov
 
-      - uses: actions/cache@v2.1.4
+      - uses: actions/cache@v2.1.6
         name: Cache Composer dependencies
         with:
           path: ~/.composer/cache/files
@@ -90,7 +90,7 @@ jobs:
 
       - name: Docker meta
         id: docker_meta
-        uses: crazy-max/ghaction-docker-meta@v2.3.0
+        uses: docker/metadata-action@v3.4.1
         with:
           images: quay.io/renokico/laravel-helm-demo
           tags: |
@@ -141,7 +141,7 @@ jobs:
           extensions: dom, curl, intl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
           coverage: pcov
 
-      - uses: actions/cache@v2.1.4
+      - uses: actions/cache@v2.1.6
         name: Cache Composer dependencies
         with:
           path: ~/.composer/cache/files
@@ -149,7 +149,7 @@ jobs:
 
       - name: Docker meta
         id: docker_meta
-        uses: crazy-max/ghaction-docker-meta@v2.3.0
+        uses: docker/metadata-action@v3.4.1
         with:
           images: quay.io/renokico/laravel-helm-demo
           tags: |

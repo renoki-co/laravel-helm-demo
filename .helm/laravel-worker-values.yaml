@@ -76,6 +76,9 @@ service:
   type: ClusterIP
   port: 80
 
+  annotations: {}
+  # Set annotations for the service.
+
 ingress:
   enabled: false
   annotations: {}

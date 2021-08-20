@@ -13,7 +13,7 @@ app:
   image:
     repository: quay.io/renokico/laravel-helm-demo
     pullPolicy: IfNotPresent
-    tag: "0.4.0"
+    tag: "0.6.0"
 
   # Specify the Secret name to pull the .env file from.
   # If not specified, it defaults to "{release name}-env". It should
@@ -43,8 +43,8 @@ app:
 
   # Extra volumes to mount on the container.
   extraVolumeMounts: []
-  #  - name: some-folder
-  #    mountPath: /some/path
+  # - name: some-folder
+  #   mountPath: /some/path
 
   # Configure the TCP healthcheck for the PHP-FPM process.
   # If enabled, Kubernetes will periodically check the PHP-FPM
@@ -52,86 +52,6 @@ app:
   healthcheck:
     enabled: true
     period: 5
-
-  # Run separate deployments (workers) that will long-live processes
-  # other than the PHP-FPM. Can be used for example to run queues or Laravel Horizon.
-  # Each worker will create a new deployment.
-  workers:
-    - name: queue
-
-      # The command to run the process.
-      command: php artisan queue:work --memory=64
-
-      # We usually recommend not to specify default resources and to leave this as a conscious
-      # choice for the user. This also increases chances charts run on environments with little
-      # resources, such as Minikube. If you do want to specify resources, uncomment the following
-      # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-      resources:
-        limits:
-          cpu: 100m
-          memory: 128Mi
-        requests:
-          cpu: 100m
-          memory: 64Mi
-
-      # Extra environment variables for the app container.
-      extraEnv: []
-
-      # Extra volumes to mount on the container.
-      extraVolumeMounts: []
-
-      # Extra containers to run in the worker deployment.
-      extraContainers: []
-
-      # Extra init containers to run in the worker deployment.
-      extraInitContainers: []
-
-      nodeSelector: {}
-
-      tolerations: []
-
-      affinity: {}
-
-      podAnnotations: {}
-
-      podSecurityContext: {}
-        # fsGroup: 2000
-
-      securityContext: {}
-        # capabilities:
-        #   drop:
-        #   - ALL
-        # readOnlyRootFilesystem: true
-        # runAsNonRoot: true
-        # runAsUser: 1000
-
-      replicaCount: 1
-
-      autoscaling:
-        enabled: true
-        minReplicas: 1
-        maxReplicas: 10
-        targetMemoryUtilizationPercentage: 80
-        # targetCPUUtilizationPercentage: 80
-
-        behavior: {}
-        # Set the behavior for the autoscaler.
-        # https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-configurable-scaling-behavior
-
-        # Custom Metrics will be appended to the default CPU/Memory resources (if they're enabled).
-        customMetrics: []
-        # - type: Pods
-        #   pods:
-        #     metric:
-        #       name: phpfpm_process_utilization
-        #     target:
-        #       type: AverageValue
-        #       averageValue: "50"
-
-      pdb:
-        enabled: true
-        minAvailable: 1
-        # maxUnavailable: 25%
 
   # For PHP-FPM, php-fpm_exporter is used. Enabling it will
   # attach automatically the container and will expose metrics on localhost:9253/metrics
@@ -145,11 +65,11 @@ app:
       pullPolicy: IfNotPresent
       tag: "2.0.1"
 
+    resources: {}
     # We usually recommend not to specify default resources and to leave this as a conscious
     # choice for the user. This also increases chances charts run on environments with little
     # resources, such as Minikube. If you do want to specify resources, uncomment the following
     # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-    resources: {}
       # limits:
       #   cpu: 40m
       #   memory: 32Mi
@@ -180,8 +100,8 @@ nginx:
 
   # Extra volumes to mount on the container.
   extraVolumeMounts: []
-  #  - name: some-folder
-  #    mountPath: /some/path
+  # - name: some-folder
+  #   mountPath: /some/path
 
   # Configure the HTTP healthcheck for the Laravel app.
   # If enabled, ensure the given path in the Laravel app
@@ -264,11 +184,11 @@ nginx:
       pullPolicy: IfNotPresent
       tag: "0.9.0"
 
+    resources: {}
     # We usually recommend not to specify default resources and to leave this as a conscious
     # choice for the user. This also increases chances charts run on environments with little
     # resources, such as Minikube. If you do want to specify resources, uncomment the following
     # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-    resources: {}
     # limits:
     #   cpu: 40m
     #   memory: 32Mi
@@ -304,6 +224,9 @@ service:
   type: ClusterIP
   port: 80
 
+  annotations: {}
+  # Set annotations for the service.
+
 ingress:
   enabled: true
   annotations:
@@ -315,15 +238,15 @@ ingress:
       paths:
         - /
   tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
+  # - secretName: chart-example-tls
+  #   hosts:
+  #     - chart-example.local
 
 autoscaling:
   enabled: true
   minReplicas: 1
   maxReplicas: 10
-  # targetCPUUtilizationPercentage: 80
+  targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
   # Set the behavior for the autoscaler.
@@ -357,8 +280,8 @@ affinity: {}
 
 # Extra volumes to attach to the deployment.
 extraVolumes: []
-#  - name: some-folder
-#    emptyDir: {}
+# - name: some-folder
+#   emptyDir: {}
 
 # Extra containers to run in the deployment.
 extraContainers: []

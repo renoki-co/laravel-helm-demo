@@ -24,8 +24,6 @@ app:
     - --server=swoole
     - --host=0.0.0.0
     - --port=80
-    - --max-requests=500
-    - --quiet
 
   # Specify the Secret name to pull the .env file from.
   # If not specified, it defaults to "{release name}-env". It should
@@ -91,6 +89,9 @@ securityContext: {}
 service:
   type: ClusterIP
   port: 80
+
+  annotations: {}
+  # Set annotations for the service.
 
 ingress:
   enabled: true
