@@ -1,5 +1,5 @@
 # https://github.com/renoki-co/laravel-docker-base
-FROM renokico/laravel-base:1.0.0-8.0-fpm-alpine
+FROM quay.io/renokico/laravel-base:1.1.0-8.0-fpm-alpine
 
 COPY . /var/www/html
 
