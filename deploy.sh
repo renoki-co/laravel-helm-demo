@@ -7,7 +7,7 @@
 # This file is only for small minor fixes on the project, like deploying the files to the CDN,
 # caching the config, route, view, running migrations, etc.
 
-# composer install --ignore-platform-reqs --optimize-autoloader --no-dev
+# composer install --ignore-platform-reqs --optimize-autoloader --no-dev --prefer-dist
 
 php artisan config:cache
 php artisan route:cache
