@@ -8,6 +8,9 @@
     - [Deploy Script](#deploy-script)
   - [Deploying on Kubernetes](#deploying-on-kubernetes)
     - [Deploying Chart](#deploying-chart)
+    - [Configuring Environment Variables](#configuring-environment-variables)
+    - [Database](#database)
+    - [Filesystems](#filesystems)
     - [Autoscaling](#autoscaling)
     - [Scaling Horizon & Octane](#scaling-horizon--octane)
 
@@ -70,6 +73,22 @@ Commands like `php artisan migrate` or `php artisan route:cache` are the most ap
 ### Deploying Chart
 
 A brief example can be found in `.helm/deploy.sh` on how to deploy a Laravel Octane application. You will also find optional Helm releases that might help you deploying the application, such as Prometheus for PHP-FPM + NGINX scaling or NGINX Ingress Controller to port NGINX to the app service.
+
+### Configuring Environment Variables
+
+The nature of Laravel (as Deployment Kind) in Kubernetes is to be stateless. Meaning that the pods (holding the images built earlier) are created and destroyed without any persistence between roll-outs or roll-ins. To preserve this, the `.env` file is mounted as a `Secret` kind, and once the Pod creates, the contents of the secret is spilled out in the `.env` file within the pod.
+
+These secrets can be encrypted at rest. For example, in AWS, you can specify [to encrypt Secret kinds with KMS](https://aws.amazon.com/about-aws/whats-new/2020/03/amazon-eks-adds-envelope-encryption-for-secrets-with-aws-kms/).
+
+### Database
+
+As explained earlier, because the nature of Laravel (or any other app as Deployment) in Kubernetes is to be stateless, you may want to persist data for your application using another service. You can use AWS RDS if you are in AWS, for example.
+
+You can also deploy your databases, such as MySQL or PostgreSQL, such as [third party Helm Charts](https://bitnami.com/stack/mysql/helm).
+
+### Filesystems
+
+Using local storage will delete all your stored files between pod lifecycles. The best way is to use a third-party service, like AWS S3, Minio, Google Cloud Storage etc.
 
 ### Autoscaling
 
