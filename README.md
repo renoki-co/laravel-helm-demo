@@ -8,6 +8,7 @@
   - [Deploying on Kubernetes](#deploying-on-kubernetes)
     - [Deploying Chart](#deploying-chart)
     - [Autoscaling](#autoscaling)
+    - [Scaling Horizon & Octane](#scaling-horizon--octane)
 
 # Laravel Helm Demo
 
@@ -79,3 +80,12 @@ jobs:
 
       ...
 ```
+
+### Scaling Horizon & Octane
+
+It is well known that for Kubernetes, you may scale based on CPU or memory allocated to each pod. But you can also scale based on Prometheus metrics.
+
+For ease of access, you may use the following exporters for your Laravel application:
+
+- [Laravel Horizon Exporter](https://github.com/renoki-co/horizon-exporter) - used to scale application pods that run the queue workers
+- [Laravel Octane Exporter](https://github.com/renoki-co/octane-exporter) - used to scale the Octane pods to ensure better parallelization
