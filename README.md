@@ -1,4 +1,5 @@
 - [Laravel Helm Demo](#laravel-helm-demo)
+  - [🤝 Supporting](#-supporting)
   - [Building Image](#building-image)
     - [NGINX + PHP-FPM](#nginx--php-fpm)
     - [Octane](#octane)
@@ -36,21 +37,33 @@ All images are based on [Laravel Docker Base images](https://github.com/renoki-c
 
 The images generated with NGINX + PHP-FPM are using [renoki-co/laravel chart](https://github.com/renoki-co/charts/tree/master/charts/laravel) and you may find there the documentation on how to deploy the chart.
 
+Basically, the final Docker image will be built using the `Dockerfile.fpm` file. It includes logs creation, permission changes and eventually clearing up additional files that you may not want to clutter your image with.
+
 ### Octane
 
 The images generated with Octane are using [renoki-co/laravel-octane chart](https://github.com/renoki-co/charts/tree/master/charts/laravel-octane) and you may find there the documentation on how to deploy the chart.
+
+The `Dockerfile.octane` file will guide the image to be built in the same manner as the usual PHP-FPM version, but it comes with a lightweight PHP-Swoole image to start from. The defined entrypoint command can be later replaced in the Kubernetes Deployment configuration.
 
 ### Workers
 
 The images generated for Workers are using [renoki-co/laravel-worker chart](https://github.com/renoki-co/charts/tree/master/charts/laravel-worker) and you may find there the documentation on how to deploy the chart.
 
+Workers need only the PHP CLI to be available. It's almost like Octane, but some processes do not require Swoole, like Horizon.
+
 ### Installing Dependencies
 
 It's recommended that the dependencies and other static data to be installed alongside with the container in CI/CD pipeline. This way, your pods will not take additional time each time they start to complete additional long steps like installing the dependencies or compiling the frontend assets.
 
+In this demo project, in `.github/workflows/docker-release-tag.yml`, for example, the CI/CD pipeline will run additional steps like `composer install` and build the image. The final build will have dependencies already installed and you will be easily be implementing a fast-responding app, which is ready to scale really fast.
+
 ### Deploy Script
 
-In the project root, you will find a `deploy.sh` file that will contain additional steps to run on each Pod startup. You might change it according to your needs, but keep in mind that it shouldn't take too much. The more it takes, the slower your autoscaling will be.
+In the project root, you will find a `deploy.sh` file that will contains additional steps to run on each Pod startup. You might change it according to your needs, but keep in mind that it shouldn't take too much. The more it takes, the slower your scaling up will be.
+
+In this file you may run additional steps that depend on your `.env` file, as at the Pod startup, the `.env` file is injected via the Secret kind.
+
+Commands like `php artisan migrate` or `php artisan route:cache` are the most appropriate ones to run here.
 
 ## Deploying on Kubernetes
 
