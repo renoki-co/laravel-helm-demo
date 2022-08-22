@@ -26,7 +26,7 @@ jobs:
           extensions: dom, curl, intl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
           coverage: pcov
 
-      - uses: actions/cache@v3.0.5
+      - uses: actions/cache@v3.0.8
         name: Cache Composer dependencies
         with:
           path: ~/.composer/cache/files
@@ -75,7 +75,7 @@ jobs:
           extensions: dom, curl, intl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
           coverage: pcov
 
-      - uses: actions/cache@v3.0.5
+      - uses: actions/cache@v3.0.8
         name: Cache Composer dependencies
         with:
           path: ~/.composer/cache/files
@@ -124,7 +124,7 @@ jobs:
           extensions: dom, curl, intl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
           coverage: pcov
 
-      - uses: actions/cache@v3.0.5
+      - uses: actions/cache@v3.0.8
         name: Cache Composer dependencies
         with:
           path: ~/.composer/cache/files
